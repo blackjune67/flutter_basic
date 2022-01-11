@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Appbar',
       theme: ThemeData(primarySwatch: Colors.red),
-      home: MyPage(),
+      home: SubPage(),
     );
   }
 }
@@ -55,6 +55,16 @@ class MyPage extends StatelessWidget {
                 backgroundImage: AssetImage('assets/pngwing.png'),
                 backgroundColor: Colors.white,
               ),
+              otherAccountsPictures: [
+                CircleAvatar(
+                  backgroundImage: AssetImage('assets/b.png'),
+                  backgroundColor: Colors.white,
+                ),
+                // CircleAvatar(
+                //   backgroundImage: AssetImage('assets/b.png'),
+                //   backgroundColor: Colors.white,
+                // ),
+              ],
               accountName: Text('JUNE'),
               accountEmail: Text('june@naver.com'),
               onDetailsPressed: () {
@@ -66,10 +76,74 @@ class MyPage extends StatelessWidget {
                     bottomLeft: Radius.circular(40.0),
                     bottomRight: Radius.circular(40.0),
                   )),
-            )
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.home,
+                color: Colors.grey[850],
+              ),
+              title: Text('Home'),
+              onTap: () {
+                print('안녕?? 난 클릭이야');
+              },
+              trailing: Icon(Icons.add),
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.settings,
+                color: Colors.grey[850],
+              ),
+              title: Text('Setting'),
+              onTap: () {
+                print('Setting!');
+              },
+              trailing: Icon(Icons.add),
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.question_answer,
+                color: Colors.grey[850],
+              ),
+              title: Text('Q&A'),
+              onTap: () {
+                print('Q&A!');
+              },
+              trailing: Icon(Icons.add),
+            ),
           ],
         ),
       ),
     );
+  }
+}
+
+class SubPage extends StatelessWidget {
+  // const SubPage({ Key? key }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('Snack Bar'),
+          centerTitle: true,
+        ),
+        body: Builder(
+          builder: (BuildContext ctx) {
+            return Center(
+              child: FlatButton(
+                child: Text(
+                  'Show me',
+                  style: TextStyle(color: Colors.white),
+                ),
+                color: Colors.red,
+                onPressed: () {
+                  Scaffold.of(ctx).showSnackBar(SnackBar(
+                    content: Text('Hello'),
+                  ));
+                },
+              ),
+            );
+          },
+        ));
   }
 }
