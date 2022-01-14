@@ -1,149 +1,92 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // const MyApp({ Key? key }) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Appbar',
+      title: 'Snack Bar',
       theme: ThemeData(primarySwatch: Colors.red),
-      home: SubPage(),
+      home: MyPage(),
     );
   }
 }
 
 class MyPage extends StatelessWidget {
-  // const MyPage({ Key? key }) : super(key: key);
+  const MyPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Appbar icon menu'),
+        title: Text('Snack Bar'),
         centerTitle: true,
-        elevation: 0.0,
-
-        // leading: IconButton(
-        //   icon: Icon(Icons.menu),
-        //   onPressed: () {
-        //     print('짜잔!!');
-        //   },
-        // ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.shopping_cart),
-            onPressed: () {
-              print('쇼핑 카트!!');
-            },
-          ),
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {
-              print('검색!!');
-            },
-          ),
-        ],
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            UserAccountsDrawerHeader(
-              currentAccountPicture: CircleAvatar(
-                backgroundImage: AssetImage('assets/pngwing.png'),
-                backgroundColor: Colors.white,
-              ),
-              otherAccountsPictures: [
-                CircleAvatar(
-                  backgroundImage: AssetImage('assets/b.png'),
-                  backgroundColor: Colors.white,
-                ),
-                // CircleAvatar(
-                //   backgroundImage: AssetImage('assets/b.png'),
-                //   backgroundColor: Colors.white,
-                // ),
-              ],
-              accountName: Text('JUNE'),
-              accountEmail: Text('june@naver.com'),
-              onDetailsPressed: () {
-                print('ㅋㅋㅋㅋㅋㅋ');
-              },
-              decoration: BoxDecoration(
-                  color: Colors.red[200],
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(40.0),
-                    bottomRight: Radius.circular(40.0),
-                  )),
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.home,
-                color: Colors.grey[850],
-              ),
-              title: Text('Home'),
-              onTap: () {
-                print('안녕?? 난 클릭이야');
-              },
-              trailing: Icon(Icons.add),
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.settings,
-                color: Colors.grey[850],
-              ),
-              title: Text('Setting'),
-              onTap: () {
-                print('Setting!');
-              },
-              trailing: Icon(Icons.add),
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.question_answer,
-                color: Colors.grey[850],
-              ),
-              title: Text('Q&A'),
-              onTap: () {
-                print('Q&A!');
-              },
-              trailing: Icon(Icons.add),
-            ),
-          ],
-        ),
+      body: Center(
+        child: TextButton(
+            onPressed: () {
+              flutterToast();
+            },
+            child: Text('Toast!'),
+            // style: TextButton.styleFrom(
+            //   primary: Colors.red
+            // )
+            // style: TextButton.styleFrom(primary: Colors.red)),
+            style: ButtonStyle(
+                // foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                overlayColor: MaterialStateProperty.resolveWith<Color?>(
+                    (Set<MaterialState> states) {
+              if (states.contains(MaterialState.focused)) return Colors.red;
+              if (states.contains(MaterialState.hovered)) return Colors.green;
+              if (states.contains(MaterialState.pressed)) return Colors.blue;
+              return null; // Defer to the widget's default.
+            }))),
       ),
     );
   }
 }
 
-class SubPage extends StatelessWidget {
-  // const SubPage({ Key? key }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text('Snack Bar'),
-          centerTitle: true,
-        ),
-        body: Builder(
-          builder: (BuildContext ctx) {
-            return Center(
-              child: FlatButton(
-                child: Text(
-                  'Show me',
-                  style: TextStyle(color: Colors.white),
-                ),
-                color: Colors.red,
-                onPressed: () {
-                  Scaffold.of(ctx).showSnackBar(SnackBar(
-                    content: Text('Hello'),
-                  ));
-                },
-              ),
-            );
-          },
-        ));
-  }
+void flutterToast() {
+  Fluttertoast.showToast(
+      msg: 'flutter입니다',
+      gravity: ToastGravity.BOTTOM,
+      backgroundColor: Colors.redAccent,
+      fontSize: 20.0,
+      textColor: Colors.white,
+      toastLength: Toast.LENGTH_SHORT);
 }
+
+
+
+
+
+// * Snack Bar
+// class MySnackBar extends StatelessWidget {
+//   const MySnackBar({Key? key}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Center(
+//       child: ElevatedButton(
+//         child: Text('show me'),
+//         onPressed: () {
+//           // Scaffold.of(context).showSnackBar(snackbar)
+//           ScaffoldMessenger.of(context).showSnackBar(
+//             SnackBar(
+//               content: Text(
+//                 'Hello!',
+//                 textAlign: TextAlign.center,
+//                 style: TextStyle(color: Colors.white),
+//               ),
+//               backgroundColor: Colors.teal,
+//               duration: Duration(milliseconds: 1000),
+//             ),
+//           );
+//         },
+//       ),
+//     );
+//   }
+// }
