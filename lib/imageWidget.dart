@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+void main() => runApp(ImageWidgetApp());
+
 class ImageWidgetApp extends StatefulWidget {
   const ImageWidgetApp({Key? key}) : super(key: key);
 
@@ -10,6 +12,11 @@ class ImageWidgetApp extends StatefulWidget {
 class _ImageWidgetAppState extends State<ImageWidgetApp> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Test Bar'),
+        centerTitle: true,
+      ),
+    );
   }
 }
